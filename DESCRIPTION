@@ -1,0 +1,10 @@
+Package: MATH4753hart0097
+Type: Package
+Title: holds math4753 functions
+Version: 0.1.0
+Author: Cole Hartman
+Maintainer: Cole Hartman <col3@ou.edu>
+Description: a subset of math4753 coursework and functions.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
