@@ -8,8 +8,10 @@
 #'
 #' @examples
 #' \dontrun{myddt(ddt, species = "CCATFISH")}
-
 myddt = function(df, species){
+
+  library(ggplot2)
+  library(dplyr)
 
   ddt2 <- ddt[ddt$SPECIES == species,]  #Subsets our data frame so we can work with the correct species.
 
@@ -27,7 +29,7 @@ myddt = function(df, species){
 
   g = g + labs(title = paste0("COLE HARTMAN PLOT FOR ", species), x = "LENGTH", y = "WEIGHT") #Adds labels to our plot
   print(g) #Prints the plot
-  print(ddt) #Prints the data frame to the command line
-  print(ddt2) #Prints the subsetted data frame to the command line
+  a <- list(data_frame = df, subset_dataframe = ddt2) #Lists all the data, as well as a subsetted list for the species we are interested in.
+  print(a)
   table(ddt$RIVER) / length(ddt$RIVER) #Gives a relative frequency table for the river data.
 }
