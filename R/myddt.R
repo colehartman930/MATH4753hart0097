@@ -19,15 +19,15 @@ myddt = function(df, species){
 
   write.csv(ddt2, paste0("LvsWfor", species, ".csv")) # Creates our csv output file
 
-  g <- ggplot(ddt2, aes_string(x = ddt2$LENGTH, y = ddt2$WEIGHT)) # Creates our plot and gives values to the x and y axis
+  g <- ggplot(ddt2, aes_string(x = ddt2$WEIGHT, y = ddt2$LENGTH)) # Creates our plot and gives values to the x and y axis
 
-  g = g + geom_point(x = ddt2$LENGTH, y = ddt2$WEIGHT) # Adds points
+  g = g + geom_point(x = ddt2$WEIGHT, y = ddt2$LENGTH) # Adds points
 
   g = g + geom_point(aes(fill = RIVER), color = fishcol) # Colors our points in accordance to which river they were found in and makes our legend
 
   g = g + geom_smooth(formula = y~x +I(x^2), method = "lm") # Adds a curve to the plot
 
-  g = g + labs(title = paste0("COLE HARTMAN PLOT FOR ", species), x = "LENGTH", y = "WEIGHT") #Adds labels to our plot
+  g = g + labs(title = paste0("COLE HARTMAN PLOT FOR ", species), x = "WEIGHT", y = "LENGTH") #Adds labels to our plot
   print(g) #Prints the plot
   a <- list(data_frame = df, subset_dataframe = ddt2) #Lists all the data, as well as a subsetted list for the species we are interested in.
   print(a)
