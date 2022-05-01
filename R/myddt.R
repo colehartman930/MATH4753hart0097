@@ -7,21 +7,18 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{myddt(ddt, species = "CCATFISH")}
+#' \dontrun{myddt(df = ddt, species = "CCATFISH")}
 myddt = function(df, species){
 
-  library(ggplot2)
-  library(dplyr)
+  newdf <- df[df$SPECIES == species,]    #Subsets our data frame so we can work with the correct species.
 
-  ddt2 <- ddt[ddt$SPECIES == species,]  #Subsets our data frame so we can work with the correct species.
+  fishcol=with(newdf,ifelse(RIVER=="FCM","Red", ifelse(RIVER=="LCM","Blue", ifelse(RIVER=="TRM", "Purple", "Green"))))  # Colors the river something unique for each instance.
 
-  fishcol=with(ddt2,ifelse(RIVER=="FCM","Red", ifelse(RIVER=="LCM","Blue", ifelse(RIVER=="TRM", "Purple", "Green"))))  # Colors the river something unique for each instance.
+  write.csv(newdf, paste0("LvsWfor", species, ".csv")) # Creates our csv output file
 
-  write.csv(ddt2, paste0("LvsWfor", species, ".csv")) # Creates our csv output file
+  g <- ggplot(newdf, aes_string(x = newdf$WEIGHT, y = newdf$LENGTH)) # Creates our plot and gives values to the x and y axis
 
-  g <- ggplot(ddt2, aes_string(x = ddt2$WEIGHT, y = ddt2$LENGTH)) # Creates our plot and gives values to the x and y axis
-
-  g = g + geom_point(x = ddt2$WEIGHT, y = ddt2$LENGTH) # Adds points
+  g = g + geom_point(x = newdf$WEIGHT, y = newdf$LENGTH) # Adds points
 
   g = g + geom_point(aes(fill = RIVER), color = fishcol) # Colors our points in accordance to which river they were found in and makes our legend
 
@@ -29,7 +26,8 @@ myddt = function(df, species){
 
   g = g + labs(title = paste0("COLE HARTMAN PLOT FOR ", species), x = "WEIGHT", y = "LENGTH") #Adds labels to our plot
   print(g) #Prints the plot
-  a <- list(data_frame = df, subset_dataframe = ddt2) #Lists all the data, as well as a subsetted list for the species we are interested in.
+  a <- list(data_frame = df, subset_dataframe = newdf) #Lists all the data, as well as a subsetted list for the species we are interested in.
   print(a)
-  table(ddt$RIVER) / length(ddt$RIVER) #Gives a relative frequency table for the river data.
+  table(df$RIVER) / length(df$RIVER) #Gives a relative frequency table for the river data.
 }
+

@@ -1,4 +1,4 @@
-#' Title Uniform Distribution Histogram
+#'  Uniform Distribution Histogram
 #'
 #' @param n sample size
 #' @param iter number of iterations

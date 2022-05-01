@@ -5,7 +5,7 @@
 #' @param param parameter values
 #' @param ...
 #'
-#' @return A graph of the maximum likelihoof function
+#' @return A graph of the maximum likelihood function
 #' @export
 #'
 #' @examples

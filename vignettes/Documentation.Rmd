@@ -1,0 +1,100 @@
+---
+title: "What the package does"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{What the package does}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(MATH4753hart0097)
+```
+
+# Introduction
+
+Welcome to my package. Over the course of the semester I have made a couple functions that I have been adding to this R package. At this point, we need to start getting an explanation going for what these things do because I am starting to lose track. What will follow will be pretty much every function I have added to the package with an explanation and example of it running. RAR!
+
+## mygetwd()
+
+Probably the most exciting function I have made this semester is the "mygetwd()" function, which allows you to find the working directory wherever you are working.
+
+```{r}
+MATH4753hart0097::mygetwd()
+```
+
+## scatterhist()
+
+This function takes in two data sets, and x and a y, and allows you to also add in labels. What will follow will be a scatter histogram with the two sets of data you put in. For this example you need to read in the DDT data file.
+
+```{r}
+ddt = read.csv("DDT.csv")
+MATH4753hart0097::scatterhist(x=ddt$LENGTH,y=ddt$WEIGHT,xlab="LENGTH",ylab="WEIGHT")
+```
+
+## mybin()
+
+This is a binomial sampling function that takes in 3 parameters. Iter for how many iterations you want, n for the number of trials, and p for the probability. After taking these in it outputs a relative frequency barplot showing percentage of "successes."
+
+```{r}
+MATH4753hart0097::mybin(iter = 100, n=10, p=0.7)
+```
+
+## mycurve()
+
+This guy is the normal curve maker. This function also takes in three parameters: mu for the mean value of the distribution, sigma for the standard deviation of the distribution, and a for an upper limit on x. After taking this in it creates a normal curve with a shaded area, as well as what the area (probability) under the curve is.
+
+```{r}
+MATH4753hart0097::myncurve(2, 5, 3)
+```
+
+## myddt()
+
+This function is made specifically for a CSV file that has data about fish in a river in Tennessee (i think). The two parameters it takes in are the data frame and the species you are interested in getting data in. Then it makes a plot of weight vs length for a specific species, as well as this information being output in a csv file. In the command line you can also see the data used. Make sure you have ggplot2 installed to use this function
+
+```{r}
+library(ggplot2)
+ddt = read.csv("DDT.csv")
+MATH4753hart0097::myddt(df = ddt, species = "CCATFISH")
+```
+
+## mycltu()
+
+This is the uniform distribution function. Put in the sample size, the number of iterations, and your lower and upper bounds and the function will create a histogram with a curve on it.
+
+```{r}
+MATH4753hart0097::mycltu(2, 100000, 0, 10)
+```
+
+## myboot2()
+
+This is the bootstrap function. This function has 4 parameters: iter for the number of iterations
+x for the sample you are using, fun for what function you want to use, alpha is the percent interval estimate, and cx is the size of points. This function will create a histogram with the confidence interval pasted onto it. For the following function I created a random sample called "sam."
+
+```{r}
+set.seed(39); sam=rnorm(25,mean=25,sd=10)
+MATH4753hart0097::myboot2(iter=1000, x=sam, fun="mean",alpha=0.05,cx=1.5)
+```
+
+## mymaxlik()
+
+Here we have the max likelihood function. It takes 3 parameters: lfun is a logarithmic function, x is a vector of values, and param for your parameter values. The function then creates a maximum likelihood graph, with a line showing where the maximum likelihood is. Running the following function you need to have already created some sort of log function like seen below.
+
+```{r}
+logbin=function(x,param) log(dbinom(x,prob=param,size=10))
+y = c(3,3,4,3,4,5,5,4)
+MATH4753hart0097::mymaxlik(lfun = logbin, x=y, param = seq(0,1,length=1000))
+```
+
+
+
+
+
+
